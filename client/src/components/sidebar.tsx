@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from 'react'
 import {
   ChevronsUpDown,
   LogOut,
-  Menu,
   PanelLeftClose,
   PanelLeftOpen,
   Settings,
@@ -15,6 +14,7 @@ import {
   X,
 } from 'lucide-react'
 
+import { DashboardHeader } from '@/components/header'
 import { NAV_ITEMS } from '@/lib/nav-items'
 import { cn } from '@/lib/utils'
 
@@ -33,7 +33,7 @@ function Brand({
   onToggle?: () => void
 }) {
   return (
-    <div className='border-b border-[#E5E7EB] px-4 pt-5 pb-4'>
+    <div className='border-b border-[#E5E7EB] px-4 pt-5 pb-4 dark:border-gray-800'>
       <div
         className={cn(
           'flex',
@@ -53,7 +53,7 @@ function Brand({
             <ShoppingBasket className='size-5' aria-hidden='true' />
           </span>
           {!collapsed && (
-            <span className='truncate text-base font-semibold tracking-tight text-[#1F2937]'>
+            <span className='truncate text-base font-semibold tracking-tight text-[#1F2937] dark:text-gray-100'>
               Bazar Inventory
             </span>
           )}
@@ -65,7 +65,7 @@ function Brand({
             aria-expanded={!collapsed}
             aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            className='shrink-0 rounded-lg p-2 text-[#6B7280] hover:bg-gray-100'
+            className='shrink-0 rounded-lg p-2 text-[#6B7280] hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800'
           >
             {collapsed ? (
               <PanelLeftOpen className='size-5' aria-hidden='true' />
@@ -109,8 +109,8 @@ function SidebarNav({
                   'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium',
                   collapsed && 'justify-center px-2',
                   active
-                    ? 'bg-[#DCFCE7] text-[#15803D]'
-                    : 'text-[#1F2937] hover:bg-gray-100'
+                    ? 'bg-[#DCFCE7] text-[#15803D] dark:bg-green-950 dark:text-green-300'
+                    : 'text-[#1F2937] hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800'
                 )}
               >
                 <Icon className='size-5 shrink-0' aria-hidden='true' />
@@ -165,7 +165,7 @@ function UserProfile({
     <div
       ref={menuRef}
       className={cn(
-        'relative border-t border-[#E5E7EB]',
+        'relative border-t border-[#E5E7EB] dark:border-gray-800',
         collapsed ? 'p-2' : 'p-3'
       )}
     >
@@ -174,7 +174,7 @@ function UserProfile({
           role='menu'
           aria-label='User menu'
           className={cn(
-            'absolute rounded-lg border border-[#E5E7EB] bg-white py-1',
+            'absolute rounded-lg border border-[#E5E7EB] bg-white py-1 dark:border-gray-700 dark:bg-gray-900',
             collapsed
               ? 'bottom-0 left-full ml-2 w-48'
               : 'inset-x-3 bottom-full mb-2'
@@ -184,7 +184,7 @@ function UserProfile({
             role='menuitem'
             href='/settings'
             onClick={closeMenu}
-            className='flex items-center gap-2 px-3 py-2 text-sm text-[#1F2937] hover:bg-gray-100'
+            className='flex items-center gap-2 px-3 py-2 text-sm text-[#1F2937] hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800'
           >
             <User className='size-4' aria-hidden='true' />
             Profile
@@ -193,7 +193,7 @@ function UserProfile({
             role='menuitem'
             href='/settings'
             onClick={closeMenu}
-            className='flex items-center gap-2 px-3 py-2 text-sm text-[#1F2937] hover:bg-gray-100'
+            className='flex items-center gap-2 px-3 py-2 text-sm text-[#1F2937] hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800'
           >
             <Settings className='size-4' aria-hidden='true' />
             Account Settings
@@ -202,7 +202,7 @@ function UserProfile({
             role='menuitem'
             type='button'
             onClick={closeMenu}
-            className='flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-[#1F2937] hover:bg-gray-100'
+            className='flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-[#1F2937] hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800'
           >
             <LogOut className='size-4' aria-hidden='true' />
             Logout
@@ -217,7 +217,7 @@ function UserProfile({
         aria-label='User menu: Admin User, Administrator'
         title={collapsed ? 'Admin User (Administrator)' : undefined}
         className={cn(
-          'flex w-full items-center gap-3 rounded-lg px-2 py-2 text-left hover:bg-gray-100',
+          'flex w-full items-center gap-3 rounded-lg px-2 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-800',
           collapsed && 'justify-center px-0'
         )}
       >
@@ -230,15 +230,15 @@ function UserProfile({
         {!collapsed && (
           <>
             <span className='min-w-0 flex-1'>
-              <span className='block truncate text-sm font-medium text-[#1F2937]'>
+              <span className='block truncate text-sm font-medium text-[#1F2937] dark:text-gray-100'>
                 Admin User
               </span>
-              <span className='block truncate text-xs text-[#6B7280]'>
+              <span className='block truncate text-xs text-[#6B7280] dark:text-gray-400'>
                 Administrator
               </span>
             </span>
             <ChevronsUpDown
-              className='size-4 shrink-0 text-[#6B7280]'
+              className='size-4 shrink-0 text-[#6B7280] dark:text-gray-400'
               aria-hidden='true'
             />
           </>
@@ -271,11 +271,11 @@ export function AppSidebar({ children }: { children: React.ReactNode }) {
   const toggleCollapsed = () => setCollapsed((value) => !value)
 
   return (
-    <div className='flex min-h-screen bg-white'>
+    <div className='flex min-h-screen bg-white dark:bg-gray-950'>
       {/* Desktop sidebar */}
       <aside
         className={cn(
-          'sticky top-0 hidden h-screen shrink-0 flex-col border-r border-[#E5E7EB] bg-white transition-[width] duration-300 ease-in-out lg:flex',
+          'sticky top-0 hidden h-screen shrink-0 flex-col border-r border-[#E5E7EB] bg-white transition-[width] duration-300 ease-in-out lg:flex dark:border-gray-800 dark:bg-gray-900',
           collapsed ? 'w-[72px]' : 'w-[260px]'
         )}
       >
@@ -296,10 +296,10 @@ export function AppSidebar({ children }: { children: React.ReactNode }) {
             role='dialog'
             aria-modal='true'
             aria-label='Navigation menu'
-            className='absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col bg-white'
+            className='absolute inset-y-0 left-0 flex w-72 max-w-[85vw] flex-col bg-white dark:bg-gray-900'
           >
-            <div className='flex items-center justify-between border-b border-[#E5E7EB] px-4 py-3'>
-              <span className='flex items-center gap-2 text-sm font-semibold text-[#1F2937]'>
+            <div className='flex items-center justify-between border-b border-[#E5E7EB] px-4 py-3 dark:border-gray-800'>
+              <span className='flex items-center gap-2 text-sm font-semibold text-[#1F2937] dark:text-gray-100'>
                 <span className='flex size-8 items-center justify-center rounded-lg bg-[#15803D] text-white'>
                   <ShoppingBasket className='size-4' aria-hidden='true' />
                 </span>
@@ -309,7 +309,7 @@ export function AppSidebar({ children }: { children: React.ReactNode }) {
                 type='button'
                 onClick={closeMobile}
                 aria-label='Close menu'
-                className='rounded-lg p-2 text-[#1F2937] hover:bg-gray-100'
+                className='rounded-lg p-2 text-[#1F2937] hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800'
               >
                 <X className='size-5' aria-hidden='true' />
               </button>
@@ -322,22 +322,7 @@ export function AppSidebar({ children }: { children: React.ReactNode }) {
 
       {/* Content column */}
       <div className='flex min-w-0 flex-1 flex-col'>
-        <header className='sticky top-0 z-30 flex h-14 items-center gap-2 border-b border-[#E5E7EB] bg-white px-4 lg:hidden'>
-          <button
-            type='button'
-            onClick={() => setMobileOpen(true)}
-            aria-label='Open menu'
-            className='rounded-lg p-2 text-[#1F2937] hover:bg-gray-100'
-          >
-            <Menu className='size-5' aria-hidden='true' />
-          </button>
-          <span className='flex items-center gap-2 text-sm font-semibold text-[#1F2937]'>
-            <span className='flex size-7 items-center justify-center rounded-md bg-[#15803D] text-white'>
-              <ShoppingBasket className='size-4' aria-hidden='true' />
-            </span>
-            Bazar Inventory
-          </span>
-        </header>
+        <DashboardHeader onMenuClick={() => setMobileOpen(true)} />
         <main className='flex-1 p-4 md:p-6'>{children}</main>
       </div>
     </div>
