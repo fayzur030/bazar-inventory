@@ -12,7 +12,7 @@ export default function DashboardLayout({
       <AppSidebar />
       <SidebarInset>
         <SiteHeader />
-        {children}
+        <main className='ml-4 mt-4'>{children}</main>
       </SidebarInset>
     </SidebarProvider>
   )

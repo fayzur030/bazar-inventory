@@ -1,10 +1,10 @@
-import { PagePlaceholder } from '@/components/page-placeholder'
+import ProductsTable from '@/components/products/ProductsTable'
+import { Suspense } from 'react'
 
-export default function Page() {
+export default function ProductPage() {
   return (
-    <PagePlaceholder
-      title='Products'
-      description='Manage your product catalog, pricing, and stock.'
-    />
+    <div>
+      <ProductsTable />
+    </div>
   )
 }
