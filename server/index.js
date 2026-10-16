@@ -28,7 +28,10 @@ const db = connectedClient.db('bazar-inventory')
 const products = db.collection('products')
 
 app.get('/', (req, res) => {
-  res.send('products curd server is ruining!')
+  res.json({
+    success: true,
+    message: 'Bazar & Inventory Management API is running successfully!',
+  })
 })
 
 //all products
