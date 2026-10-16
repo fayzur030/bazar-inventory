@@ -50,6 +50,39 @@ app.get(`/products/:id`, async (req, res) => {
   res.send(result)
 })
 
+// delete product
+app.delete(`/products/:id`, async (req, res) => {
+  const id = req.params
+  const query = { _id: new ObjectId(id) }
+  const result = await products.deleteOne(query)
+  res.send(result)
+})
+
+//update product
+app.patch(`/products/:id`, async (req, res) => {
+  const id = req.params
+  const updateProduct = req.body
+  const filter = { _id: new ObjectId(id) }
+  const options = { upsert: true }
+  const updateDoc = {
+    $set: {
+      name: updateProduct.name,
+      category: updateProduct.category,
+      description: updateProduct.description,
+      image: updateProduct.image,
+      price: updateProduct.price,
+      costPrice: updateProduct.costPrice,
+      stock: updateProduct.stock,
+      unit: updateProduct.unit,
+      sku: updateProduct.sku,
+      status: updateProduct.status,
+      lowStockThreshold: updateProduct.lowStockThreshold,
+    },
+  }
+  const result = await products.updateOne(filter, updateDoc, options)
+  res.send(result)
+})
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
