@@ -1,5 +1,5 @@
 import 'dotenv/config'
-import { MongoClient } from 'mongodb'
+import { MongoClient, ObjectId } from 'mongodb'
 import express from 'express'
 import cors from 'cors'
 const app = express()
@@ -35,11 +35,19 @@ app.get('/', (req, res) => {
 })
 
 //all products
-
 app.get('/products', async (req, res) => {
   const cursor = products.find({})
   const allProducts = await cursor.toArray()
   res.send(allProducts)
+})
+
+//getProductById
+
+app.get(`/products/:id`, async (req, res) => {
+  const id = req.params
+  const query = { _id: new ObjectId(id) }
+  const result = await products.findOne(query)
+  res.send(result)
 })
 
 app.listen(port, () => {
