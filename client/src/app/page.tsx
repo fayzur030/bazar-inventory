@@ -1,38 +1,26 @@
+import { SignInForm } from '@/components/auth/SignInForm'
+import logo from '@/assets/Bazar-Inventory Storefront Logo (1).png'
 import Link from 'next/link'
-import { NAV_ITEMS } from '@/lib/nav-items'
+import Image from 'next/image'
 
-export default function Home() {
-  const shortcuts = NAV_ITEMS.filter((item) => item.href !== '/')
-
+const SignInPage = () => {
   return (
-    <div className='flex flex-col gap-6'>
-      <div>
-        <h1 className='text-2xl font-semibold tracking-tight text-[#1F2937] dark:text-gray-100'>
-          Dashboard
-        </h1>
-        <p className='mt-1 text-sm text-[#6B7280] dark:text-gray-400'>
-          Welcome to Bazar Inventory. Choose a section to get started.
-        </p>
-      </div>
-      <div className='grid gap-4 sm:grid-cols-2 xl:grid-cols-3'>
-        {shortcuts.map((item) => {
-          const Icon = item.icon
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className='flex items-center gap-3 rounded-lg border border-[#E5E7EB] bg-white p-4 hover:bg-gray-50 dark:border-gray-800 dark:bg-gray-900 dark:hover:bg-gray-800'
-            >
-              <span className='flex size-10 shrink-0 items-center justify-center rounded-lg bg-[#DCFCE7] text-[#15803D] dark:bg-green-950 dark:text-green-300'>
-                <Icon className='size-5' aria-hidden='true' />
-              </span>
-              <span className='text-sm font-medium text-[#1F2937] dark:text-gray-100'>
-                {item.title}
-              </span>
-            </Link>
-          )
-        })}
+    <div>
+      <div className='flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10'>
+        <div className='flex w-full max-w-sm flex-col gap-6'>
+          <Link
+            href='#'
+            className='flex items-center gap-2 self-center font-medium'
+          >
+            <div>
+              <Image src={logo} alt='Logo' width={100} height={100} />
+            </div>
+          </Link>
+          <SignInForm />
+        </div>
       </div>
     </div>
   )
 }
+
+export default SignInPage
