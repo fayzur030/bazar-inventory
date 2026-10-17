@@ -1,7 +1,14 @@
-import React from 'react'
+import ProductsTable from '@/components/products/ProductsTable'
+import { Suspense } from 'react'
 
-const Product = () => {
-  return <div>Product</div>
+const ProductPage = () => {
+  return (
+    <div>
+      <Suspense>
+        <ProductsTable />
+      </Suspense>
+    </div>
+  )
 }
 
-export default Product
+export default ProductPage
