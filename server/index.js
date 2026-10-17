@@ -41,6 +41,28 @@ app.get('/products', async (req, res) => {
   res.send(allProducts)
 })
 
+// Add a new product
+app.post('/products', async (req, res) => {
+  try {
+    const newProduct = req.body
+
+    const result = await products.insertOne(newProduct)
+
+    res.status(201).json({
+      success: true,
+      message: 'Product added successfully!',
+      insertedId: result.insertedId,
+    })
+  } catch (error) {
+    console.error('Failed to add product:', error)
+
+    res.status(500).json({
+      success: false,
+      message: 'Failed to add product',
+    })
+  }
+})
+
 //getProductById
 
 app.get(`/products/:id`, async (req, res) => {
