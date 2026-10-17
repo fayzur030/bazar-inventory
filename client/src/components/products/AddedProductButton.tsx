@@ -1,11 +1,11 @@
 import { Button } from 'antd'
-import { Plus } from 'lucide-react'
+import { PlusOutlined } from '@ant-design/icons'
 
 const AddedProductButton = () => {
   return (
     <Button
       type='primary'
-      icon={<Plus size={16} />}
+      icon={<PlusOutlined />}
       style={{
         background: 'linear-gradient(135deg, #4f46e5, #2563eb)',
         border: 'none',

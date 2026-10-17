@@ -1,16 +1,14 @@
 'use client'
-
-import { Button, Table, Tag, Typography } from 'antd'
+import { Table, Tag, Typography } from 'antd'
 import type { ColumnsType } from 'antd/es/table'
-import { PlusOutlined } from '@ant-design/icons'
-import { useEffect, useState } from 'react'
-import { getALlProducts } from '@/services/getProductService'
+
 import Image from 'next/image'
 import ActionButton from './ActionButton'
+import AddProductModal from './AddProductModal'
 
 const { Text } = Typography
 
-interface ProductRecord {
+export interface ProductRecord {
   key: string
   image: string
   name: string
@@ -21,28 +19,11 @@ interface ProductRecord {
   status: 'active' | 'inactive'
 }
 
-const ProductsTable = () => {
-  const [products, setProducts] = useState<ProductRecord[]>([])
-  const [loading, setLoading] = useState(true)
+interface ProductsTableClientProps {
+  products: ProductRecord[]
+}
 
-  useEffect(() => {
-    getALlProducts().then((data) => {
-      setProducts(
-        data.map((p) => ({
-          key: p._id,
-          image: p.image,
-          name: p.name,
-          category: p.category,
-          unit: p.unit,
-          price: p.price,
-          stock: p.stock,
-          status: p.status,
-        }))
-      )
-      setLoading(false)
-    })
-  }, [])
-
+const ProductsTable = ({ products }: ProductsTableClientProps) => {
   const columns: ColumnsType<ProductRecord> = [
     {
       title: '#',
@@ -111,9 +92,7 @@ const ProductsTable = () => {
       dataIndex: 'status',
       key: 'status',
       render: (status: 'active' | 'inactive') => (
-        <Tag color={status === 'active' ? 'success' : 'error'}>
-          {status}
-        </Tag>
+        <Tag color={status === 'active' ? 'success' : 'error'}>{status}</Tag>
       ),
     },
     {
@@ -126,33 +105,25 @@ const ProductsTable = () => {
 
   return (
     <div className='app-products'>
-      <div className='app-products-header'>
+      <div className=' flex items-center justify-between'>
         <div>
           <Text strong style={{ fontSize: 20, color: '#f8fbff' }}>
             All Products: {products.length}
           </Text>
           <br />
           <Text type='secondary' style={{ fontSize: 13 }}>
-            Manage your products, stock and pricing
+            Manage your products, <br className='block md:hidden' /> stock and
+            pricing
           </Text>
         </div>
-        <Button
-          type='primary'
-          icon={<PlusOutlined />}
-          style={{
-            background: 'linear-gradient(135deg, #4f46e5, #2563eb)',
-            border: 'none',
-            borderRadius: 10,
-          }}
-        >
-          Add Product
-        </Button>
+
+        <AddProductModal products={products} />
       </div>
 
       <Table
         dataSource={products}
         columns={columns}
-        loading={loading}
+        // loading={loading}
         pagination={{ pageSize: 10, showSizeChanger: false }}
         className='app-table'
         scroll={{ x: 800 }}

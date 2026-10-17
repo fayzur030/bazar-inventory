@@ -45,7 +45,6 @@ app.get('/products', async (req, res) => {
 app.post('/products', async (req, res) => {
   try {
     const newProduct = req.body
-
     const result = await products.insertOne(newProduct)
 
     res.status(201).json({

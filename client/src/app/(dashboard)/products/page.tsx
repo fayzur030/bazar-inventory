@@ -1,9 +1,9 @@
-import ProductsTable from '@/components/products/ProductsTable'
+import ProductFetch from '@/components/products/ProductsFetch'
 
 export default function ProductPage() {
   return (
     <div>
-      <ProductsTable />
+      <ProductFetch />
     </div>
   )
 }
