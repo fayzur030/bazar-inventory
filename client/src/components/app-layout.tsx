@@ -176,7 +176,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
               aria-label='Toggle theme'
               suppressHydrationWarning
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className='group relative size-10 overflow-hidden rounded-xl border-border/70 bg-gradient-to-br from-[#102b5a]/10 via-[#2563eb]/10 to-[#4f46e5]/15 text-primary shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-[0_0_18px_oklch(0.532_0.23_277/0.4)] dark:from-[#102b5a] dark:via-[#1a3a75] dark:to-[#102b5a] dark:border-primary/40 dark:hover:shadow-[0_0_22px_oklch(0.566_0.215_263/0.5)]'
+              className='group relative size-10 overflow-hidden rounded-xl border-[#E2E8F0] bg-white text-[#4F46E5] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#6366F1] hover:bg-[#EEF2FF] hover:shadow-[0_0_16px_rgba(99,102,241,0.18)]  dark:border-[#263247] dark:bg-[#111827] dark:text-[#A5B4FC] dark:hover:border-[#6366F1] dark:hover:bg-[#1F2937] dark:hover:shadow-[0_0_20px_rgba(99,102,241,0.25)]'
             >
               {theme === 'light' ? (
                 <Moon
