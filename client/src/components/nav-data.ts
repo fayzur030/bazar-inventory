@@ -3,8 +3,6 @@ import {
   Package,
   Tags,
   Warehouse,
-  AlertTriangle,
-  ArrowLeftRight,
   ShoppingCart,
   ShoppingBasket,
   Truck,
