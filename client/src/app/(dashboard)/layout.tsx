@@ -1,19 +1,9 @@
-import { AppSidebar } from '@/components/app-sidebar'
-import { SiteHeader } from '@/components/side-header'
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
+import DashboardShell from '@/components/layout/dashboard-shell'
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <SiteHeader />
-        <main className='ml-4 mt-4'>{children}</main>
-      </SidebarInset>
-    </SidebarProvider>
-  )
+  return <DashboardShell>{children}</DashboardShell>
 }
