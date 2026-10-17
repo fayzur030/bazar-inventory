@@ -16,19 +16,7 @@ import { Card } from '../ui/card'
 import { AddProductModal } from './AddProductModal'
 import Image from 'next/image'
 import { ActionButton } from './ActionButton'
-
-interface Product {
-  _id: string
-  name: string
-  category: string
-  image: string
-  price: number
-  costPrice: number
-  stock: number
-  unit: string
-  status: 'active' | 'inactive'
-  lowStockThreshold: number
-}
+import { Product } from '@/types/ProductTypes'
 
 interface Props {
   products: Product[]
@@ -136,7 +124,7 @@ const ProductsTableClient = ({ products }: Props) => {
 
                   <TableCell className='text-right align-middle'>
                     <div className='flex items-center justify-between'>
-                      <ActionButton />
+                      <ActionButton product={product} />
                     </div>
                   </TableCell>
                 </TableRow>
