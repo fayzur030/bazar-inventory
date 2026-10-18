@@ -27,9 +27,7 @@ const ProductsTableClient = ({ products }: Props) => {
 
   const itemsPerPage = 7
   const totalPages = Math.ceil(products.length / itemsPerPage)
-
   const startIndex = (currentPage - 1) * itemsPerPage
-
   const currentProducts = products.slice(startIndex, startIndex + itemsPerPage)
 
   const productHeader = [
@@ -44,6 +42,12 @@ const ProductsTableClient = ({ products }: Props) => {
     'Actions',
   ]
 
+  const categories = Array.from(
+    new Set(products.map((product) => product.category))
+  )
+
+  const unites = Array.from(new Set(products.map((product) => product.unit)))
+
   return (
     <div>
       <div className='flex items-center justify-between'>
@@ -57,7 +61,7 @@ const ProductsTableClient = ({ products }: Props) => {
           </p>
         </div>
 
-        <AddProductModal />
+        <AddProductModal categories={categories} unites={unites} />
       </div>
 
       <Card className='mt-9 overflow-x-auto px-2'>
