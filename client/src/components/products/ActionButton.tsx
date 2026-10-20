@@ -1,6 +1,6 @@
 'use client'
 
-import { Ellipsis, PencilIcon, ShareIcon, TrashIcon } from 'lucide-react'
+import { Ellipsis, ShareIcon, TrashIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -11,15 +11,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Product } from '@/types/ProductTypes'
+
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
+import { EditProductModal, type ProductProps } from './EditProductModal'
 
-interface ProductProps {
-  product: Product
-}
-
-export function ActionButton({ product }: ProductProps) {
+export function ActionButton({ product, categories, unites }: ProductProps) {
   const router = useRouter()
   const handleDeleteProduct = async (productId: string) => {
     try {
@@ -53,10 +50,11 @@ export function ActionButton({ product }: ProductProps) {
       />
       <DropdownMenuContent>
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <PencilIcon />
-            Edit
-          </DropdownMenuItem>
+          <EditProductModal
+            product={product}
+            categories={categories}
+            unites={unites}
+          />
           <DropdownMenuItem>
             <ShareIcon />
             Share

@@ -128,7 +128,11 @@ const ProductsTableClient = ({ products }: Props) => {
 
                   <TableCell className='text-right align-middle'>
                     <div className='flex items-center justify-between'>
-                      <ActionButton product={product} />
+                      <ActionButton
+                        product={product}
+                        categories={categories}
+                        unites={unites}
+                      />
                     </div>
                   </TableCell>
                 </TableRow>
