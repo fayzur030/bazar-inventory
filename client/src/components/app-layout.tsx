@@ -3,7 +3,7 @@
 import type { ReactNode } from 'react'
 import { usePathname } from 'next/navigation'
 
-import { Search, Sun, Moon, LogOut, ChevronRight } from 'lucide-react'
+import { Search, Sun, Moon, LogOut, ChevronRight, Package } from 'lucide-react'
 
 import { useTheme } from 'next-themes'
 
@@ -100,9 +100,11 @@ export function AppLayout({ children }: { children: ReactNode }) {
       <Sidebar collapsible='icon'>
         <SidebarHeader className='gap-4 p-4'>
           <div className='flex items-center gap-2 text-xl font-extrabold tracking-tight'>
-            <div className='size-7 shrink-0 rounded-lg bg-brand-gradient logo-glow' />
+            <Package size={30} />
 
-            <span className='group-data-[collapsible=icon]:hidden'>VIREO</span>
+            <span className='group-data-[collapsible=icon]:hidden'>
+              Bazar Inventory
+            </span>
           </div>
 
           <div className='group-data-[collapsible=icon]:hidden'>
@@ -119,8 +121,6 @@ export function AppLayout({ children }: { children: ReactNode }) {
 
         <SidebarContent>
           <NavGroup label='Dashboards' items={dashboards} />
-
-          
 
           <NavGroup label='Modules' items={modules} chevron />
         </SidebarContent>
