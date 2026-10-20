@@ -28,7 +28,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
-import { dashboards, applications, modules, type NavItem } from './nav-data'
+import { dashboards, modules, type NavItem } from './nav-data'
 import { UserInfo } from './UserInfo'
 import Link from 'next/link'
 
@@ -61,25 +61,22 @@ function NavGroup({
 
             return (
               <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton
-                  isActive={isActive}
-                  tooltip={item.title}
-                  className={`h-10 rounded-xl px-3 transition-all duration-300 ${
-                    isActive
-                      ? 'bg-gradient-to-r from-[#2563eb] to-[#4f46e5] text-white shadow-[0_0_16px_oklch(0.532_0.23_277/0.4)] data-[active=true]:bg-gradient-to-r data-[active=true]:text-white'
-                      : 'text-slate-600 hover:bg-[#2563eb]/10 hover:text-[#2563eb] dark:text-slate-300 dark:hover:bg-[#4f46e5]/15 dark:hover:text-indigo-300'
-                  }`}
-                >
-                  <Link
-                    href={`/dashboard/${item.slug}`}
-                    className='flex items-center gap-4'
+                <Link href={`/dashboard/${item.slug}`}>
+                  <SidebarMenuButton
+                    isActive={isActive}
+                    tooltip={item.title}
+                    className={`h-10 rounded-xl px-3 transition-all duration-300 ${
+                      isActive
+                        ? 'bg-linear-to-r from-[#2563eb] to-[#4f46e5] text-white! shadow-[0_0_16px_oklch(0.532_0.23_277/0.4)] data-[active=true]:bg-linear-to-r data-[active=true]:text-white'
+                        : 'text-slate-600 hover:bg-[#2563eb]/10 hover:text-[#2563eb] dark:text-slate-300 dark:hover:bg-[#4f46e5]/15 dark:hover:text-indigo-300'
+                    }`}
                   >
                     <item.icon />
                     <span>{item.title}</span>
-                  </Link>
 
-                  {chevron && <ChevronRight className='ml-auto opacity-60' />}
-                </SidebarMenuButton>
+                    {chevron && <ChevronRight className='ml-auto opacity-60' />}
+                  </SidebarMenuButton>
+                </Link>
 
                 {item.badge && (
                   <SidebarMenuBadge className='rounded-md bg-primary/15 text-[10px] text-primary'>
@@ -123,7 +120,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
         <SidebarContent>
           <NavGroup label='Dashboards' items={dashboards} />
 
-          <NavGroup label='Applications' items={applications} chevron />
+          
 
           <NavGroup label='Modules' items={modules} chevron />
         </SidebarContent>

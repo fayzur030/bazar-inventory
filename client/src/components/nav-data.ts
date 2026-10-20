@@ -34,10 +34,6 @@ export const dashboards: NavItem[] = [
     slug: 'analytics',
     icon: ChartNoAxesCombined,
   },
-]
-
-// Inventory Management
-export const applications: NavItem[] = [
   {
     title: 'All Products',
     slug: 'products',
@@ -54,6 +50,8 @@ export const applications: NavItem[] = [
     icon: Warehouse,
   },
 ]
+
+// Inventory Management
 
 // Business Operations
 export const modules: NavItem[] = [
@@ -100,4 +98,4 @@ export const modules: NavItem[] = [
 ]
 
 // All navigation items
-export const allNav: NavItem[] = [...dashboards, ...applications, ...modules]
+export const allNav: NavItem[] = [...dashboards, ...modules]

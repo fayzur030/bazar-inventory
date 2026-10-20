@@ -1,6 +1,6 @@
 'use client'
 
-import { Ellipsis, Eye, PencilIcon, ShareIcon, TrashIcon } from 'lucide-react'
+import { Ellipsis, Eye, PencilIcon, TrashIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -12,34 +12,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import { toast } from 'sonner'
-import { useRouter } from 'next/navigation'
 import { EditProductModal, type ProductProps } from './EditProductModal'
 import { useState } from 'react'
 import Link from 'next/link'
+import ProductDeleteDialog from './ProductDeleteDialog'
 
 export function ActionButton({ product, categories, unites }: ProductProps) {
   const [editOpen, setEditOpen] = useState(false)
-  const router = useRouter()
-  const handleDeleteProduct = async (productId: string) => {
-    try {
-      const res = await fetch(
-        `https://bazar-inventory.onrender.com/products/${productId}`,
-        {
-          method: 'DELETE',
-        }
-      )
-
-      if (!res.ok) {
-        throw new Error('Failed to delete product')
-      }
-
-      toast.success('Product deleted successfully!')
-      router.refresh()
-    } catch (error) {
-      console.error('Error deleting user:', error)
-    }
-  }
+  const [deleteOpen, setDeleteOpen] = useState(false)
 
   return (
     <>
@@ -79,7 +59,9 @@ export function ActionButton({ product, categories, unites }: ProductProps) {
           <DropdownMenuGroup>
             <DropdownMenuItem
               variant='destructive'
-              onSelect={() => handleDeleteProduct(product._id)}
+              onClick={() => {
+                setDeleteOpen(true)
+              }}
             >
               <TrashIcon />
               Delete
@@ -88,12 +70,19 @@ export function ActionButton({ product, categories, unites }: ProductProps) {
         </DropdownMenuContent>
       </DropdownMenu>
 
+      {/* Edit Dialog */}
       <EditProductModal
         product={product}
         categories={categories}
         unites={unites}
         open={editOpen}
         onOpenChange={setEditOpen}
+      />
+      {/* Delete dialog */}
+      <ProductDeleteDialog
+        open={deleteOpen}
+        onOpenChange={setDeleteOpen}
+        product={product}
       />
     </>
   )
