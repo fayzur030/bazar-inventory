@@ -157,7 +157,7 @@ const ProductsTableClient = ({ products }: Props) => {
 
         {/* Table */}
         <div className='w-full min-w-0 overflow-x-auto'>
-          <Table className='min-w-[950px]'>
+          <Table className='min-w-237.5'>
             <TableHeader>
               <TableRow className='border-b border-slate-200 bg-slate-50/80 hover:bg-slate-50/80 dark:border-slate-800 dark:bg-slate-900/60 dark:hover:bg-slate-900/60'>
                 {productHeader.map((header) => (
@@ -172,8 +172,8 @@ const ProductsTableClient = ({ products }: Props) => {
             </TableHeader>
 
             <TableBody>
-              {filteredProduct.length > 0 ? (
-                filteredProduct.map((product) => (
+              {currentProducts.length > 0 ? (
+                currentProducts.map((product) => (
                   <TableRow
                     key={product._id}
                     className='border-b border-slate-100 transition-colors duration-200 hover:bg-blue-50/40 dark:border-slate-800/80 dark:hover:bg-slate-900/70'
