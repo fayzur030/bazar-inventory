@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { cn } from '@/lib/utils'
-import { PencilIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
@@ -15,7 +14,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog'
 
 import { Input } from '@/components/ui/input'
@@ -33,27 +31,20 @@ export interface ProductProps {
   product: Product
   categories: string[]
   unites: string[]
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
 export function EditProductModal({
   product,
   categories,
   unites,
+  open = false,
+  onOpenChange,
 }: ProductProps) {
-  const [open, setOpen] = React.useState(false)
-
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger
-        render={
-          <button type='button' className='ml-2 flex items-center gap-2'>
-            <PencilIcon size={16} />
-            Edit
-          </button>
-        }
-      />
-
-      <DialogContent className='sm:max-w-3xl'>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className='max-h-[90vh] overflow-y-auto sm:max-w-3xl'>
         <DialogHeader>
           <DialogTitle>Edit Product</DialogTitle>
           <DialogDescription>
@@ -62,10 +53,11 @@ export function EditProductModal({
         </DialogHeader>
 
         <EditProductForm
+          key={product._id}
           product={product}
           categories={categories}
           unites={unites}
-          onSuccess={() => setOpen(false)}
+          onSuccess={() => onOpenChange?.(false)}
         />
       </DialogContent>
     </Dialog>

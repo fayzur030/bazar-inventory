@@ -1,6 +1,6 @@
 'use client'
 
-import { Ellipsis, ShareIcon, TrashIcon } from 'lucide-react'
+import { Ellipsis, Eye, PencilIcon, ShareIcon, TrashIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -15,8 +15,11 @@ import {
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { EditProductModal, type ProductProps } from './EditProductModal'
+import { useState } from 'react'
+import Link from 'next/link'
 
 export function ActionButton({ product, categories, unites }: ProductProps) {
+  const [editOpen, setEditOpen] = useState(false)
   const router = useRouter()
   const handleDeleteProduct = async (productId: string) => {
     try {
@@ -39,38 +42,59 @@ export function ActionButton({ product, categories, unites }: ProductProps) {
   }
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger
-        className={`text-center items-center`}
-        render={
-          <Button variant='outline'>
-            <Ellipsis />
-          </Button>
-        }
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger
+          render={
+            <Button variant='outline' size='icon'>
+              <Ellipsis />
+            </Button>
+          }
+        />
+
+        <DropdownMenuContent align='end'>
+          <DropdownMenuGroup>
+            <DropdownMenuItem
+              onClick={() => {
+                setEditOpen(true)
+              }}
+            >
+              <PencilIcon size={16} />
+              Edit
+            </DropdownMenuItem>
+
+            <DropdownMenuItem>
+              <Link
+                href={`/dashboard/products/${product._id}`}
+                className='flex items-center gap-2'
+              >
+                <Eye size={16} />
+                View Details
+              </Link>
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+
+          <DropdownMenuSeparator />
+
+          <DropdownMenuGroup>
+            <DropdownMenuItem
+              variant='destructive'
+              onSelect={() => handleDeleteProduct(product._id)}
+            >
+              <TrashIcon />
+              Delete
+            </DropdownMenuItem>
+          </DropdownMenuGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <EditProductModal
+        product={product}
+        categories={categories}
+        unites={unites}
+        open={editOpen}
+        onOpenChange={setEditOpen}
       />
-      <DropdownMenuContent>
-        <DropdownMenuGroup>
-          <EditProductModal
-            product={product}
-            categories={categories}
-            unites={unites}
-          />
-          <DropdownMenuItem>
-            <ShareIcon />
-            Share
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator />
-        <DropdownMenuGroup>
-          <DropdownMenuItem
-            variant='destructive'
-            onClick={() => handleDeleteProduct(product._id)}
-          >
-            <TrashIcon />
-            Delete
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    </>
   )
 }
