@@ -46,7 +46,7 @@ export function AddProductModal({ categories, unites }: AddProductModalProps) {
           </Button>
         }
       />
-      <DialogContent className='sm:max-w-3xl'>
+      <DialogContent className='max-h-[90vh] overflow-y-auto sm:max-w-3xl'>
         <DialogHeader>
           <DialogTitle> Add Product</DialogTitle>
           <DialogDescription>
@@ -80,8 +80,19 @@ function AddProductForm({
   const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    const newProduct = Object.fromEntries(formData.entries())
-    console.log(newProduct)
+    const newProduct = {
+      name: String(formData.get('name') ?? '').trim(),
+      category: String(formData.get('category') ?? ''),
+      description: String(formData.get('description') ?? '').trim(),
+      image: String(formData.get('image') ?? '').trim(),
+      price: Number(formData.get('price')),
+      costPrice: Number(formData.get('costPrice')),
+      stock: Number(formData.get('stock')),
+      unit: String(formData.get('unit') ?? ''),
+      status: String(formData.get('status') ?? ''),
+      lowStockThreshold: Number(formData.get('lowStockThreshold')),
+    }
+
     try {
       const res = await fetch(`https://bazar-inventory.onrender.com/products`, {
         method: 'POST',

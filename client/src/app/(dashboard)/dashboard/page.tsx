@@ -1,11 +1,11 @@
-export default function DashboardPage() {
-  return (
-    <section className='space-y-2'>
-      <h1 className='text-2xl font-bold tracking-tight'>Dashboard Overview</h1>
+import OverviewCard from '@/components/dashboard/OverviewCard'
+import { getAllProducts } from '@/services/getAllProducts'
 
-      <p className='text-sm text-muted-foreground'>
-        Welcome back! Here is your inventory overview.
-      </p>
-    </section>
+export default async function DashboardPage() {
+  const products = await getAllProducts()
+  return (
+    <div>
+      <OverviewCard products={products} />
+    </div>
   )
 }
