@@ -34,11 +34,12 @@ import { Search, Package, ArrowDownUp } from 'lucide-react'
 interface Props {
   products: Product[]
 }
+type sortedTypes = 'default' | 'price-low' | 'price-high'
 
 const ProductsTableClient = ({ products }: Props) => {
   //search state
   const [searchTerm, setSearchTerm] = useState('')
-
+  const [sortProduct, setSortProduct] = useState<sortedTypes>('default')
   const [currentPage, setCurrentPage] = useState(1)
 
   // Search logic
@@ -51,10 +52,29 @@ const ProductsTableClient = ({ products }: Props) => {
     return searchProductByName || searchProductByCategory
   })
 
+  //sorted logic
+  const sortedProducts = [...filteredProduct].sort((a, b) => {
+    if (sortProduct === 'price-low') {
+      return a.price - b.price
+    }
+
+    if (sortProduct === 'price-high') {
+      return b.price - a.price
+    }
+
+    return b._id.localeCompare(a._id)
+  })
+  const handleSortChange = (value: sortedTypes | null) => {
+    if (value !== null) {
+      setSortProduct(value)
+      setCurrentPage(1)
+    }
+  }
+
   const itemsPerPage = 7
-  const totalPages = Math.ceil(filteredProduct.length / itemsPerPage)
+  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage)
   const startIndex = (currentPage - 1) * itemsPerPage
-  const currentProducts = filteredProduct.slice(
+  const currentProducts = sortedProducts.slice(
     startIndex,
     startIndex + itemsPerPage
   )
@@ -136,19 +156,16 @@ const ProductsTableClient = ({ products }: Props) => {
               Sort by
             </span>
 
-            <Select defaultValue='newest'>
+            <Select value={sortProduct} onValueChange={handleSortChange}>
               <SelectTrigger className='h-12 w-full min-w-0 flex-1 rounded-md border-slate-200 bg-white sm:h-14 py-5 sm:w-72 sm:flex-none dark:border-slate-800 dark:bg-slate-900'>
                 <SelectValue placeholder='Sort by' />
               </SelectTrigger>
 
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value='newest'>Newest First</SelectItem>
-                  <SelectItem value='oldest'>Oldest First</SelectItem>
+                  <SelectItem value='default'>default</SelectItem>
                   <SelectItem value='price-low'>Price: Low to High</SelectItem>
                   <SelectItem value='price-high'>Price: High to Low</SelectItem>
-                  <SelectItem value='name-asc'>Name: A to Z</SelectItem>
-                  <SelectItem value='name-desc'>Name: Z to A</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>

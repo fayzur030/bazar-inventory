@@ -29,7 +29,7 @@ const ProductDetails = ({ details }: ProductDetailsProps) => {
       <div className='flex flex-col justify-between gap-4 sm:flex-row sm:items-center'>
         <div>
           <Link
-            href='/products'
+            href='/dashboard/products'
             className='mb-4 inline-flex items-center gap-2 text-sm text-muted-foreground transition hover:text-foreground'
           >
             <ArrowLeft size={16} />
